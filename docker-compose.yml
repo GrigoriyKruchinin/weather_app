@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "5432:5433"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    environment:
+      - DJANGO_SETTINGS_MODULE=weather_app.settings
+      - DEBUG=True
+      - DB_HOST=db
+      - API_KEY=${API_KEY}
+    depends_on:
+      - db

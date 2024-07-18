@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода в {{ city_name }}</title>
+</head>
+<body>
+    <h1>Прогноз погоды в {{ city_name }}</h1>
+
+    <p>Температура: {{ weather.main.temp }}°C</p>
+    <p>Влажность: {{ weather.main.humidity }}%</p>
+    <p>Скорость ветра: {{ weather.wind.speed }} м/c</p>
+
+    <a href="{% url 'index' %}">Вернуться к поиску</a>
+</body>
+</html>

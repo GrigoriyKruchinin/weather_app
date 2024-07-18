@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приложение Погоды</title>
+</head>
+<body>
+    <h1>Приложение Погоды</h1>
+
+    <form method="POST" action="{% url 'index' %}">
+        {% csrf_token %}
+        <label for="city_name">Введите название города:</label>
+        <input type="text" id="city_name" name="city_name" required>
+        <button type="submit">Посмотреть погоду</button>
+    </form>
+
+    <h2>История поиска:</h2>
+    <ul>
+        {% for entry in history %}
+            <li>{{ entry.city.name }} - {{ entry.search_datetime|date:"d.m.Y" }} {{ entry.search_datetime|time:"H.i" }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Для этих городов вы уже проверяли погоду! Нажмите на город, чтобы получить актуальную информацию:</h2>
+    <ul>
+        {% for city_count in city_counts %}
+            <li><a href="{% url 'weather' city_count.city__name %}">{{ city_count.city__name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Столько раз пользователи сайта проверяли погоду для городов:</h2>
+    <ul>
+        {% for city_count in city_counts %}
+            <li><a href="{% url 'weather' city_count.city__name %}">{{ city_count.city__name }}</a> - {{ city_count.count }}</li>
+        {% endfor %}
+    </ul>
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Выйти</button>
+    </form>
+</body>
+</html>

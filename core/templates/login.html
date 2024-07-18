@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+</head>
+<body>
+    <h2>Вход</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_username">Логин:</label><br>
+        {{ form.username }}<br><br>
+        <label for="id_password">Пароль:</label><br>
+        {{ form.password }}<br><br>
+        <button type="submit">Войти</button>
+    </form>
+
+    <p>Ещё не зарегистрированы? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+</body>
+</html>
