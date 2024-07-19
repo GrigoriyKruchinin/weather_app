@@ -79,9 +79,11 @@
         <button type="submit" class="btn btn-danger">Выйти</button>
     </form>
 </div>
+
 {% if error_message %}
     <div class="error-message">{{ error_message }}</div>
 {% endif %}
+
 <div class="row">
     <div class="col-lg-4">
         <div class="history-box">
@@ -97,7 +99,7 @@
         <div class="counts-box">
             <h2>Для этих городов вы уже проверяли погоду! Нажмите на город, чтобы получить актуальную информацию:</h2>
             <ul class="counts-list">
-                {% for city_count in city_counts %}
+                {% for city_count in user_city_counts %}
                     <li><a href="{% url 'weather' city_count.city__name %}">{{ city_count.city__name }}</a></li>
                 {% endfor %}
             </ul>
@@ -107,7 +109,7 @@
         <div class="counts-box">
             <h2>Столько раз пользователи сайта проверяли погоду для городов:</h2>
             <ul class="counts-list">
-                {% for city_count in city_counts %}
+                {% for city_count in global_city_counts %}
                     <li><a href="{% url 'weather' city_count.city__name %}">{{ city_count.city__name }}</a> - {{ city_count.count }}</li>
                 {% endfor %}
             </ul>

@@ -22,7 +22,19 @@ def register(request):
 
 @login_required
 def index(request):
-    error_message = None  # Инициализируем переменную error_message
+    error_message = None
+    user_history = SearchHistory.objects.filter(user=request.user).order_by("-search_datetime")
+    user_city_counts = (
+        user_history.values("city__name")
+        .annotate(count=Count("city"))
+        .order_by("-count")
+    )
+    global_city_counts = (
+        SearchHistory.objects.values("city__name")
+        .annotate(count=Count("city"))
+        .order_by("-count")
+    )
+
     if request.method == "POST":
         city_name = request.POST.get("city_name")
         if city_name:
@@ -30,22 +42,19 @@ def index(request):
             api_url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&units=metric&appid={api_key}"
             response = requests.get(api_url)
             if response.status_code == 200:
-                city, created = City.objects.get_or_create(name=city_name)
-                SearchHistory.objects.create(user=request.user, city=city)
                 return redirect("weather", city_name=city_name)
             else:
                 error_message = "Введите существующий город."
-    # Всегда получаем историю поиска и количество городов
-    history = SearchHistory.objects.filter(user=request.user).order_by("-search_datetime")
-    city_counts = (
-        SearchHistory.objects.values("city__name")
-        .annotate(count=Count("city__name"))
-        .order_by("-count")
-    )
+
     return render(
         request,
         "index.html",
-        {"history": history, "city_counts": city_counts, "error_message": error_message},
+        {
+            "history": user_history,
+            "user_city_counts": user_city_counts,
+            "global_city_counts": global_city_counts,
+            "error_message": error_message,
+        }
     )
 
 @login_required
@@ -55,6 +64,8 @@ def weather(request, city_name):
     response = requests.get(api_url)
     if response.status_code == 200:
         weather_data = response.json()
+        city, created = City.objects.get_or_create(name=city_name)
+        SearchHistory.objects.create(user=request.user, city=city)
         return render(
             request, "weather.html", {"weather": weather_data, "city_name": city_name}
         )
