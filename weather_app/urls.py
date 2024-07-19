@@ -15,4 +15,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("weather/<str:city_name>/", views.weather, name="weather"),
     path("api/city_search_count/", views.city_search_count, name="city_search_count"),
+    path('city-autocomplete/', views.city_autocomplete, name='city_autocomplete'),
+
 ]

@@ -120,3 +120,16 @@ def city_search_count(request):
         )
         data = {entry["city__name"]: entry["count"] for entry in city_counts}
         return JsonResponse(data, json_dumps_params={"ensure_ascii": False})
+
+
+def city_autocomplete(request):
+    """
+    Возвращает список городов, соответствующих запросу.
+    """
+    if "term" in request.GET:
+        term = request.GET["term"]
+        cities = City.objects.filter(name__icontains=term).values_list(
+            "name", flat=True
+        )
+        return JsonResponse(list(cities), safe=False)
+    return JsonResponse([], safe=False)
