@@ -6,3 +6,6 @@ start:
 
 up:
 	docker-compose up
+
+test:
+	docker-compose run --rm test
