@@ -1,52 +1,50 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Погода в {{ city_name }}</title>
-    <!-- Подключаем Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 20px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-        .btn-back {
-            display: block;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-back:hover {
-            background-color: #0056b3;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Погода в {{ city_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        padding-top: 20px;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 18px;
+        margin: 10px 0;
+    }
+    .btn-back {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .btn-back:hover {
+        background-color: #0056b3;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>Прогноз погоды в {{ city_name }}</h1>
 
@@ -56,10 +54,4 @@
 
         <a href="{% url 'index' %}" class="btn-back">Вернуться к поиску</a>
     </div>
-
-    <!-- Подключаем Bootstrap JS и jQuery (для некоторых компонентов Bootstrap) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}

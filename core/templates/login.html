@@ -1,69 +1,67 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход</title>
-    <!-- Подключаем Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 20px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        p {
-            text-align: center;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        padding-top: 20px;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    p {
+        text-align: center;
+    }
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <h2>Вход</h2>
 
@@ -77,15 +75,9 @@
                 <label for="id_password">Пароль:</label><br>
                 {{ form.password }}
             </div>
-            <button type="submit">Войти</button>
+            <button type="submit" class="btn btn-primary">Войти</button>
         </form>
 
         <p>Ещё не зарегистрированы? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
     </div>
-
-    <!-- Подключаем Bootstrap JS и jQuery (для некоторых компонентов Bootstrap) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}
