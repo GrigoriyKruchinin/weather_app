@@ -68,9 +68,10 @@ def weather(request, city_name):
 def city_search_count(request):
     if request.method == "GET":
         city_counts = (
-            SearchHistory.objects.values("city_name")
-            .annotate(count=Count("city_name"))
+            SearchHistory.objects
+            .values("city__name")
+            .annotate(count=Count("city"))
             .order_by("-count")
         )
-        data = {entry["city_name"]: entry["count"] for entry in city_counts}
-        return JsonResponse(data)
+        data = {entry["city__name"]: entry["count"] for entry in city_counts}
+        return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
